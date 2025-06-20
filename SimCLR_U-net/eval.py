@@ -1,5 +1,3 @@
-# predict.py
-
 import torch
 import torch.nn as nn
 import numpy as np
@@ -124,18 +122,15 @@ def predict_mask_ensemble(model_paths, image_path, device, transform, n_channels
 
 if __name__ == "__main__":
     # --- Configuration ---
-    # Path to the directory where your trained models are saved (from K-Fold training)
-    MODEL_SAVE_DIR = "/home/htic/Desktop/raisa/astrocytes/astrocyte-detection/SimCLR_U-net/kfold_models"
-    
-    # Path to the directory containing new images for prediction
-    INPUT_IMAGE_DIR = "/home/htic/Desktop/raisa/astrocytes/astrocyte-detection/test-media/final-test" # <--- IMPORTANT: CHANGE THIS PATH TO YOUR IMAGE DIRECTORY
-    
-    # Directory to save the predicted masks
-    PREDICTION_OUTPUT_DIR = "/home/htic/Desktop/raisa/astrocytes/astrocyte-detection/test-media/final-test-mask"
+    MODEL_SAVE_DIR = "path_to_model_save"
+
+    INPUT_IMAGE_DIR = "path_to_input_image_dir" 
+
+    PREDICTION_OUTPUT_DIR = "path_to_save_masks"
     os.makedirs(PREDICTION_OUTPUT_DIR, exist_ok=True)
 
     IMAGE_SIZE = (512, 512)
-    N_CHANNELS = 3 # Match this to the n_channels used during training (3 for RGB, 1 for grayscale)
+    N_CHANNELS = 3 
 
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     print(f"Using device: {device}")
