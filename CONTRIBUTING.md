@@ -1,6 +1,6 @@
-# Contributing to Astrocyte Detection Pipeline
+# Contributing to this Repository
 
-Thanks for your interest in contributing! We welcome pull requests, bug reports, and suggestions.
+Thanks for your interest in contributing! Pull requests, bug reports, and suggestions are all welcome!
 
 ## How to Contribute
 
