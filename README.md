@@ -59,7 +59,7 @@ Run pretrained U-Net on test images
 **Labeled**: 200 tiles with segmentation masks created semi-automatically using the rule-based labeling pipeline
 
 ## Labeled Masks
-To avoid the overkill of manual annotations, A simple rule-based pipeline was used to generate rough segmentation masks that can still be tweaked manually if needed. It applies a series of median blurring and erosion operations on the binary mask to identify potential cell centroids. These centroids are then used to flood-fill the same mask, producing more complete semantic segmentations. This approach gave us around 200 semi-automated masks, which were good enough to fine-tune the model effectively.
+To avoid the overkill of manual annotations, a simple rule-based pipeline was used to generate rough segmentation masks that can be tweaked manually if needed. A series of median blurring and erosion operations were applied on the binary mask to identify potential cell centroids. These centroids were then used to flood-fill the same mask, producing complete semantic segmentations. This approach gave us around 200 semi-automated masks, which were good enough to fine-tune the model effectively.
 
 <p align="center">
   <img src="data/readme2.png" width="300"/>
