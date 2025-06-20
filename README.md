@@ -1,6 +1,6 @@
 # Astrocyte-detection
 
-Astrocytes are star-shaped glial cells in the nervous system that also plays a crucial role in maintaining brain homeostasis and are implicated in various neurological disorders. This machine learning pipeline enables researchers and clinicians to automatically detect astrocytes from microscopy images of human brain tissue, improving the speed and accuracy of analysis in neurobiological studies.
+Astrocytes are star-shaped glial cells in the nervous system that play a crucial role in maintaining brain homeostasis and are implicated in various neurological disorders. This machine learning pipeline enables researchers and clinicians to automatically detect astrocytes from microscopy images of human brain tissue, improving the speed and accuracy of analysis in neurobiological studies, to potentially support neuropathological disease diagnosis, progression tracking, and large-scale post-mortem analysis in research and clinical settings.
 
 ![App Screenshot](data/readme1.png)
 
