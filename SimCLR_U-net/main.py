@@ -1,5 +1,3 @@
-# main.py
-
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -21,7 +19,6 @@ import collections
 import albumentations as A
 from albumentations.pytorch import ToTensorV2
 
-# Import your modified UNet model
 from model import UNet
 
 class SegmentationDataset(Dataset):
@@ -29,7 +26,7 @@ class SegmentationDataset(Dataset):
         self.image_paths = image_paths
         self.mask_paths = mask_paths
         self.n_channels = n_channels
-        self.size = size # Store expected size
+        self.size = size
         self.transform = transform
 
     def __len__(self):
@@ -167,15 +164,12 @@ def train_model(model, train_loader, val_loader, optimizer, criterion, epochs, d
 # --- Main Execution Block ---
 if __name__ == "__main__":
     # --- Configuration ---
-    # Put ALL your 200 images and masks into these two directories
-    ALL_IMAGE_DIR = "/home/htic/Desktop/raisa/astrocytes/astrocyte-detection/training-media/image-new"
-    ALL_MASK_DIR = "/home/htic/Desktop/raisa/astrocytes/astrocyte-detection/training-media/mask-new"
-
-    # THIS IS THE CRITICAL PATH TO YOUR SIMCLR ENCODER WEIGHTS
-    SIMCLR_ENCODER_PATH = "/home/htic/Desktop/raisa/astrocytes/astrocyte-detection/SimCLR/save/checkpoint_5.tar"
+    ALL_IMAGE_DIR = "path_to_image_dir"
+    ALL_MASK_DIR = "path_to_mask_dir"
+    SIMCLR_ENCODER_PATH = "path_to_trained_simclr"
 
     # Directory to save the models for each fold
-    MODEL_SAVE_DIR = "/home/htic/Desktop/raisa/astrocytes/astrocyte-detection/SimCLR_U-net/kfold_models"
+    MODEL_SAVE_DIR = "path_to_save_model"
     os.makedirs(MODEL_SAVE_DIR, exist_ok=True) # Create the directory if it doesn't exist
 
     IMAGE_SIZE = (512, 512)
@@ -250,8 +244,6 @@ if __name__ == "__main__":
     print("\nStarting K-Fold Cross-Validation...")
     for fold, (train_indices, val_indices) in enumerate(kf.split(indices)):
         print(f"\n--- Starting Fold {fold + 1}/{N_FOLDS} ---")
-
-        # Get the file paths for the current fold's train and validation sets
         current_train_image_paths = [all_image_paths[i] for i in train_indices]
         current_train_mask_paths = [all_mask_paths[i] for i in train_indices]
         current_val_image_paths = [all_image_paths[i] for i in val_indices]
@@ -259,14 +251,11 @@ if __name__ == "__main__":
 
         print(f"Fold {fold + 1}: Train samples: {len(current_train_image_paths)}, Val samples: {len(current_val_image_paths)}")
 
-        # Instantiate datasets and dataloaders for the current fold
         train_dataset = SegmentationDataset(current_train_image_paths, current_train_mask_paths, N_CHANNELS, size=IMAGE_SIZE, transform=train_transform)
         val_dataset = SegmentationDataset(current_val_image_paths, current_val_mask_paths, N_CHANNELS, size=IMAGE_SIZE, transform=val_transform)
 
         train_loader = DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True, num_workers=4, pin_memory=True)
         val_loader = DataLoader(val_dataset, batch_size=BATCH_SIZE, shuffle=False, num_workers=4, pin_memory=True)
-
-        # --- Model, Optimizer, Criterion for the current fold ---
         print("Instantiating UNet model with SimCLR ResNet18 encoder for current fold...")
         model = UNet(n_channels=N_CHANNELS, n_classes=N_CLASSES, bilinear=BILINEAR,
                      simclr_encoder_path=SIMCLR_ENCODER_PATH,
@@ -274,15 +263,11 @@ if __name__ == "__main__":
 
         optimizer = optim.Adam(model.parameters(), lr=LEARNING_RATE)
 
-        # Placeholder pos_weight_value: Calculate this accurately based on your dataset!
         pos_weight_value = torch.tensor(10.0).to(device)
         criterion = nn.BCEWithLogitsLoss(pos_weight=pos_weight_value)
 
-
-        # Define a path to save the model for *this specific fold*
         fold_model_save_path = os.path.join(MODEL_SAVE_DIR, f"unet_resnet_simclr_finetuned_fold_{fold+1}.pt")
 
-        # Train the model for this fold
         best_val_loss_this_fold = train_model(model, train_loader, val_loader, optimizer, criterion, EPOCHS, device, fold_model_save_path)
         fold_val_losses.append(best_val_loss_this_fold)
 
