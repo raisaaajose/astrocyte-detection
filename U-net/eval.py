@@ -69,24 +69,20 @@ def save_predicted_masks(model, dataloader, save_dir, threshold=0.20, device='cu
 
 if __name__ == "__main__":
     # --- Configuration ---
-    # Path to your trained UNet model weights
-    model_weights_path = "/home/htic/Desktop/raisa/astrocytes/astrocyte-detection/U-net/unet_model_weights.pt"
+    model_weights_path = "path_to_save_model"
     
     # Path to the directory containing images you want to predict on
     # You can set this to your training-media/image-new for testing,
     # or a completely new test image directory.
-    test_image_dir = "/home/htic/Desktop/raisa/astrocytes/astrocyte-detection/test-media/final-test"
+    test_image_dir = "path_to_test_image_dir"
     
     # Directory to save the predicted masks
-    output_masks_dir = "/home/htic/Desktop/raisa/astrocytes/astrocyte-detection/test-media/final-test-mask"
-    
-    # Image loading and model parameters - MUST match training setup
+    output_masks_dir = "path_to_test_mask_dir"
+
     image_size = (512, 512)
     n_channels = 3 # Input channels of your UNet
     n_classes = 1  # Output classes of your UNet (1 for binary segmentation)
     bilinear = True # UNet's bilinear upsampling setting
-
-    # Set device
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     print(f"Using device: {device}")
 
@@ -168,9 +164,5 @@ if __name__ == "__main__":
         sample_output = model(sample_input_tensor.to(device))
         sample_predicted_mask_probs = torch.sigmoid(sample_output)
         sample_predicted_mask_binary = (sample_predicted_mask_probs > 0.5).float()
-
-    # view_mask(targets=torch.zeros_like(sample_predicted_mask_binary), # Dummy target for visualization
-    #           output=sample_predicted_mask_binary.cpu(), 
-    #           n=1, cmap='gray')
 
     print("\nPrediction script finished.")
