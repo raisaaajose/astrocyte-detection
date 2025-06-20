@@ -66,23 +66,26 @@ To avoid the overkill of manual annotations, A simple rule-based pipeline was us
 </p>
 
 ## Suggestions for Users
-Start by using the pretrained models to evaluate performance on your dataset.
+- Start by using the pretrained models to evaluate performance on your dataset.
 
-For domain adaptation, retrain the SimCLR encoder using your own unlabeled brain tiles.
+- For domain adaptation, retrain the SimCLR encoder using your own unlabeled brain tiles.
 
-Use the semi-automated rule-based tool to quickly generate initial masks for small datasets.
+- Use the semi-automated rule-based tool to quickly generate initial masks for small datasets.
 
 ## TODO / Future Work
-Add support for larger tile sizes
+- [ ]Add support for larger tile sizes
 
-Add support for Docker
+- [ ]Add support for Docker
 
-Improve mask refinement in the rule-based pipeline
+- [ ]Improve mask refinement in the rule-based pipeline
 
-Integrate interactive annotation support
+- [ ]Integrate interactive annotation support
 
-Integrate CLI flags for directory paths
+- [ ]Integrate CLI flags for directory paths
 
+### 🤝 Contributions
+
+Contributions are welcome! Please see the [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ## Acknowledgements
 
