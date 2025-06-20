@@ -61,8 +61,9 @@ Run pretrained U-Net on test images
 ## Labeled Masks
 To avoid the overkill of manual annotations, A simple rule-based pipeline was used to generate rough segmentation masks that can still be tweaked manually if needed. It applies a series of median blurring and erosion operations on the binary mask to identify potential cell centroids. These centroids are then used to flood-fill the same mask, producing more complete semantic segmentations. This approach gave us around 200 semi-automated masks, which were good enough to fine-tune the model effectively.
 
-![App Screenshot](data/readme2.png)
-
+<p align="center">
+  <img src="data/readme2.png" width="500"/>
+</p>
 ## Suggestions for Users
 Start by using the pretrained models to evaluate performance on your dataset.
 
