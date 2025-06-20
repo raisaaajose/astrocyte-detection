@@ -142,37 +142,9 @@ def train(model, opt, loss_fn, epochs, data_loader, print_status,device):
       loss_ls.append(avg_loss)
       epoch_ls.append(epoch)
       print(avg_loss,epoch)
-      # Delete unnecessary tensors
-      # Y_batch[5:] = 0
-      # show intermediate results
       model.eval()  # testing mode
       Y_hat = F.sigmoid(model(X_batch.to(device))).detach().cpu()
-      # del X_batch
-      # Y_hat[5:, 0] = 0
       clear_output(wait=True)
 
-  # plt.subplots_adjust(bottom=1, top=2, hspace=0.2)
-  # for k in range(4):
-  #     plt.subplot(3, 4, k+1)
-  #     Y_batch2 = Variable(Y_batch[k,0,:,:], requires_grad=False)
-  #     plt.imshow(Y_batch2.cpu().numpy(), cmap='Greys')
-  #     # plt.imshow(X_batch[k,0,:,:].cpu().numpy( ))
-  #     # plt.imshow(Y_batch[k].cpu().numpy( ))
-  #     plt.title('Real')
-  #     plt.axis('off')
-
-  #     plt.subplot(3, 4, k+5)
-  #     plt.imshow(Y_hat[k, 0], cmap='Greys')
-  #     # plt.imshow(Y_hat[k, 0])
-  #     plt.title('Output')
-  #     plt.axis('off')
-        
-  # plt.suptitle('%d / %d - loss: %f' % (epoch+1, epochs, avg_loss))
-  # plt.show()
-  # plt.plot(epoch_ls, loss_ls, label='traning loss')
-  # plt.plot(epoch_ls, [loss.cpu().item() if torch.is_tensor(loss) else loss for loss in loss_ls], label='training loss')
-  # plt.legend()
-  # plt.xlabel('Epoch'), plt.ylabel('Loss')
-  # plt.show()
 
   return model
