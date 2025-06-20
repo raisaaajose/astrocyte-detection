@@ -64,6 +64,7 @@ To avoid the overkill of manual annotations, A simple rule-based pipeline was us
 <p align="center">
   <img src="data/readme2.png" width="300"/>
 </p>
+
 ## Suggestions for Users
 Start by using the pretrained models to evaluate performance on your dataset.
 
